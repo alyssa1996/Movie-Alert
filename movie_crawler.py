@@ -1,7 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
+import telegram_bot
+import telegram
 
-url = "http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=01&theatercode=0013&date=20210704"
+date = '20210706'
+
+bot = telegram.Bot(token=telegram_bot.getToken())
+url = "http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=01&theatercode=0013&date="+date
 html = requests.get(url)
 soup = BeautifulSoup(html.text, 'html.parser')
 
@@ -17,6 +22,10 @@ for movie in movie_list:
         imax_movie_list.append(movie_title)
 
 print(imax_movie_list)
+if imax_movie_list:
+    bot.sendMessage(chat_id = telegram_bot.getChatID(), text= date+"에 IMAX 예매가 열린 영화는 "+', '.join(imax_movie_list)+"입니다!")
+else:
+    bot.sendMessage(chat_id = 1876835461, text= date+"에 IMAX 예매가 열린 영화가 없습니다:(")
 '''
 처음에는 imax가 하루 영화리스트 중 3번 등장하는 것을 확인하고 아래 강의 예제 코드를 3번 돌리려고 했으나 그러면
 첫번째 영화만 3번 출력되는 것을 확인하고, 저렇게는 각 영화에 imax 상영관이 있는지 확인할 수 없을거라 판단하고 
