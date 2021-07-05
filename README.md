@@ -49,3 +49,17 @@ TIL - [BeautifulSoup에서 select 메소드 사용하기](https://velog.io/@jisu
   date = "20210701"
   url = ""http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=01&theatercode=0013&date="+date
   ```
+
+  #### 2021-07-02: 섹션3 _ 스케줄러 만들기<br>
+  APScheduler 활용
+  - 사용 이유 : 파이썬 코드를 주기적으로 수행하기 위해서
+  - BlockingScheduler는 단일스케줄러, BackgroundScheduler는 다중스케줄러
+  - 공식문서 : https://apscheduler.readthedocs.io/en/stable/userguide.html 
+  
+  코드 수정 부분
+  - 사용자가 입력한 날짜를 받아와서 imax 상영관 오픈 영화를 보여줌
+  - telegram 라이브러리를 이용하는 코드를 크롤링하는 코드에서 분리시킴 -> [분리된 코드](telegram_message.py) 
+  
+  개선해야 할 부분 / 앞으로 해야할 부분
+  - 현재 scheduler를 pasuse 시키는 부분이 따로 없음. 
+  사용자가 끝내도록 하는 기능을 추가하거나, 아예 사용자에게 처음에 이 봇을 이용하여 사용 가능한 기능을 보여준 후 사용자가 선택하는 기능들만 그때 그때 실행하도록 코드를 수정할 예정
