@@ -19,6 +19,12 @@ def get_imax_movies(movie_list):
     return movie_titles
 
 def job_function():
+    # if get_last_message().lower() == 'stop':
+    #     print(get_last_message().lower())
+    #     send_stop_message()
+    #     scheduler.pause()
+    #     return
+
     global movie_date
     current_bot_updates = get_update_counts()
     if current_bot_updates != last_bot_updates:
@@ -38,6 +44,10 @@ def job_function():
         
         current_message += " IMAX 예매가 열리는 영화는 "+', '.join(imax_movie_list)+"입니다!"
         send_bot_message(current_message)
+    else:
+        send_bot_message(movie_date+" 에 오픈되는 IMAX 영화가 없습니다.")
+        scheduler.pause()
+        return
 
 scheduler = BlockingScheduler()
 scheduler.add_job(job_function, 'interval', seconds=30)
